@@ -1,0 +1,2 @@
+.Login_content__l_7KR{min-width:16rem;display:grid;grid-template-areas:"h" "f"}.Login_form__TdVRJ{display:grid;grid-gap:.5rem;grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(2,1fr)}.Login_form__TdVRJ input[name=username],.Login_form__TdVRJ input[type=submit]{grid-column:1/span 2}.Login_form__TdVRJ input[type=button]~input[type=submit]{grid-column:2/span 1}
+/*# sourceMappingURL=6.116493da.chunk.css.map */
