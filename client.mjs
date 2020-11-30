@@ -1,3 +1,5 @@
+import fetch from "node-fetch";
+
 export class Client {
   /**
    * Должен возвращать имя пользователя или null
@@ -6,7 +8,9 @@ export class Client {
    * @return {Promise<string | null>} username
    * */
   async getUser() {
-    throw new Error("Not implemented");
+    let res = await fetch("/api/user");
+    let { user } = await res.json();
+    return user;
   }
 
   /**
@@ -17,7 +21,15 @@ export class Client {
    * @return {Promise<string | null>} username
    * */
   async loginUser(username) {
-    throw new Error("Not implemented");
+    let res = await fetch("api/user", {
+      method: "POST",
+      body: JSON.stringify({user: username}),
+      headers: {
+        "content-type" : "application/json"
+      }
+    } );
+    let { user } = await res.json();
+    return user;
   }
 
   /**
@@ -26,7 +38,9 @@ export class Client {
    * @return {void}
    * */
   async logoutUser() {
-    throw new Error("Not implemented");
+    let res = await fetch("api/user", {
+      method: "DELETE"
+    });
   }
 
   /**
@@ -63,7 +77,8 @@ export class Client {
    * @return {Promise<EventBrief[]>}
    * */
   async getHistory() {
-    throw new Error("Not implemented");
+    let res = await fetch("/api/history");
+    return res.json();
   }
 
   /**
@@ -80,7 +95,8 @@ export class Client {
    * @return {Promise<EventFull>}
    * */
   async getHistoryEvent(id) {
-    throw new Error("Not implemented");
+    let res = await fetch(`/api/history/${id}`);
+    return res.json();
   }
 
   /**
@@ -93,7 +109,8 @@ export class Client {
    * @return {Promise<RocketBrief[]>}
    * */
   async getRockets() {
-    throw new Error("Not implemented");
+    let res = await fetch('/api/rockets/');
+    return res.json();
   }
 
   /**
@@ -118,7 +135,8 @@ export class Client {
    * @return {Promise<RocketFull>}
    * */
   async getRocket(id) {
-    throw new Error("Not implemented");
+    let res = await fetch(`/api/rockets/${id}`);
+    return res.json();
   }
 
   /**
@@ -135,7 +153,8 @@ export class Client {
    * @return {Promise<Roadster>}
    * */
   async getRoadster() {
-    throw new Error("Not implemented");
+    let res = await fetch(`/api/roadster/${id}`);
+    return res.json();
   }
 
   /**
