@@ -208,7 +208,6 @@ export class Client {
    * @return {Promise<Item[]>}
    * */
   async sendToMars(item) {
-    console.log([123, item])
     const response = await fetch(`/api/dispatch/send/`, {
       method: 'post',
       headers: {
@@ -232,7 +231,6 @@ export class Client {
    * @return {Promise<Item[]>}
    * */
   async cancelSendingToMars(item) {
-    console.log([321, item])
     const response = await fetch(`/api/dispatch/cancel/`, {
       method: 'delete',
       headers: {
