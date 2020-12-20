@@ -6,7 +6,8 @@ export class Client {
    * @return {Promise<string | null>} username
    * */
   async getUser() {
-    throw new Error("Not implemented");
+    const response = await fetch('/api/user/');
+    return response.text();
   }
 
   /**
@@ -17,7 +18,10 @@ export class Client {
    * @return {Promise<string | null>} username
    * */
   async loginUser(username) {
-    throw new Error("Not implemented");
+    const response = await fetch(`/api/login/?username=${username}`, {
+      method: 'post',
+    });
+    return response.text();
   }
 
   /**
@@ -26,7 +30,9 @@ export class Client {
    * @return {void}
    * */
   async logoutUser() {
-    throw new Error("Not implemented");
+    await fetch(`/api/logout/`, {
+      method: 'post',
+    });
   }
 
   /**
@@ -50,7 +56,16 @@ export class Client {
    * @return {Promise<About>}
    * */
   async getInfo() {
-    throw new Error("Not implemented");
+    // По возможности, не запрашивай лишних данных из API и не возвращай лишних данных на клиент.
+    //  |
+    //  ---->  В документации что-то такое есть, но как это сделать я так и не понял :(
+    //          Но раз попросили не отправлять много данных на клиет, то лишняя информация обрезается на сервере.
+    //
+    // const response = await fetch('https://api.spacexdata.com/v4/company');
+    const response = await fetch('/api/info/');
+    if (response.ok) {
+      return response.json();
+    }
   }
 
   /**
@@ -63,7 +78,11 @@ export class Client {
    * @return {Promise<EventBrief[]>}
    * */
   async getHistory() {
-    throw new Error("Not implemented");
+    // const response = await fetch('https://api.spacexdata.com/v4/history')
+    const response = await fetch('/api/history/');
+    if (response.ok) {
+      return response.json();
+    }
   }
 
   /**
@@ -80,7 +99,11 @@ export class Client {
    * @return {Promise<EventFull>}
    * */
   async getHistoryEvent(id) {
-    throw new Error("Not implemented");
+    // const response = await fetch(`https://api.spacexdata.com/v4/history/${id}`);
+    const response = await fetch(`/api/history/event/?id=${id}`);
+    if (response.ok) {
+      return response.json();
+    }
   }
 
   /**
@@ -93,7 +116,11 @@ export class Client {
    * @return {Promise<RocketBrief[]>}
    * */
   async getRockets() {
-    throw new Error("Not implemented");
+    // const response = await fetch(`https://api.spacexdata.com/v4/rockets`);
+    const response = await fetch(`/api/rockets/`);
+    if (response.ok) {
+      return response.json();
+    }
   }
 
   /**
@@ -118,7 +145,11 @@ export class Client {
    * @return {Promise<RocketFull>}
    * */
   async getRocket(id) {
-    throw new Error("Not implemented");
+    // const response = await fetch(`https://api.spacexdata.com/v4/rockets/${id}`);
+    const response = await fetch(`/api/rocket/?id=${id}`);
+    if (response.ok) {
+      return response.json();
+    }
   }
 
   /**
@@ -135,7 +166,11 @@ export class Client {
    * @return {Promise<Roadster>}
    * */
   async getRoadster() {
-    throw new Error("Not implemented");
+    // const response = await fetch(`https://api.spacexdata.com/v4/roadster`);
+    const response = await fetch(`/api/roadster/`);
+    if (response.ok) {
+      return response.json();
+    }
   }
 
   /**
@@ -152,7 +187,10 @@ export class Client {
    * @return {Promise<Item[]>}
    * */
   async getSentToMars() {
-    throw new Error("Not implemented");
+    const response = await fetch(`/api/dispatch/`);
+    if (response.ok) {
+      return response.json();
+    }
   }
 
   /**
@@ -170,7 +208,20 @@ export class Client {
    * @return {Promise<Item[]>}
    * */
   async sendToMars(item) {
-    throw new Error("Not implemented");
+    console.log([123, item])
+    const response = await fetch(`/api/dispatch/send/`, {
+      method: 'post',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        item: item
+      }),
+    });
+    if (response.ok) {
+      return response.json();
+    }
   }
 
   /**
@@ -181,6 +232,19 @@ export class Client {
    * @return {Promise<Item[]>}
    * */
   async cancelSendingToMars(item) {
-    throw new Error("Not implemented");
+    console.log([321, item])
+    const response = await fetch(`/api/dispatch/cancel/`, {
+      method: 'delete',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        id: item.id,
+      }),
+    });
+    if (response.ok) {
+      return response.json();
+    }
   }
 }
