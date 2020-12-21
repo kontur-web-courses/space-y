@@ -6,18 +6,26 @@ export class Client {
    * @return {Promise<string | null>} username
    * */
   async getUser() {
-    throw new Error("Not implemented");
+    const res = await fetch('/api/user');
+    const { username } = await res.json();
+    return username;
   }
 
   /**
    * Должен логинить пользователя с именем username
    * и возвращать его имя
    *
-   * @param {string} username
+   * @param {string} u
    * @return {Promise<string | null>} username
    * */
-  async loginUser(username) {
-    throw new Error("Not implemented");
+  async loginUser(u) {
+    const res = await fetch('/api/user', {
+      method: 'POST',
+      body: JSON.stringify({ username: u }),
+      headers: { 'content-type': 'application/json' }
+    });
+    const { username } = await res.json();
+    return username;
   }
 
   /**
@@ -26,7 +34,9 @@ export class Client {
    * @return {void}
    * */
   async logoutUser() {
-    throw new Error("Not implemented");
+    await fetch('/api/user', {
+      method: 'DELETE'
+    })
   }
 
   /**
@@ -50,7 +60,8 @@ export class Client {
    * @return {Promise<About>}
    * */
   async getInfo() {
-    throw new Error("Not implemented");
+    const res = await fetch('/api/info');
+    return res.json();
   }
 
   /**
@@ -63,7 +74,8 @@ export class Client {
    * @return {Promise<EventBrief[]>}
    * */
   async getHistory() {
-    throw new Error("Not implemented");
+    const res = await fetch('/api/history')
+    return res.json();
   }
 
   /**
@@ -80,7 +92,8 @@ export class Client {
    * @return {Promise<EventFull>}
    * */
   async getHistoryEvent(id) {
-    throw new Error("Not implemented");
+    const res = await fetch(`/api/history/${id}`)
+    return res.json();
   }
 
   /**
@@ -93,7 +106,8 @@ export class Client {
    * @return {Promise<RocketBrief[]>}
    * */
   async getRockets() {
-    throw new Error("Not implemented");
+    const res = await fetch('/api/rockets');
+    return res.json();
   }
 
   /**
@@ -118,7 +132,8 @@ export class Client {
    * @return {Promise<RocketFull>}
    * */
   async getRocket(id) {
-    throw new Error("Not implemented");
+    const res = await fetch(`/api/rockets/${id}`);
+    return res.json();
   }
 
   /**
@@ -135,7 +150,8 @@ export class Client {
    * @return {Promise<Roadster>}
    * */
   async getRoadster() {
-    throw new Error("Not implemented");
+    const res = await fetch('/api/roadster');
+    return res.json();
   }
 
   /**
