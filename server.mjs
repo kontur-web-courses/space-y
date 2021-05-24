@@ -18,10 +18,32 @@ app.get("/client.mjs", (_, res) => {
   });
 });
 
+
+https.createServer({
+  key: fs.readFileSync('certs/server.key'),
+  cert: fs.readFileSync('certs/server.cert')
+}, app)
+.listen(port, () => {
+  console.log(`App listening on port ${port}`);
+});
+
+// app.use(express.static("spa/build"));
+app.use('/static', express.static(path.join(rootDir, 'spa/build')));
+
 app.get("/", (_, res) => {
   res.send(":)");
 });
 
-app.listen(port, () => {
-  console.log(`App listening on port ${port}`);
+
+app.get("/api/getUser/:name", (req, res) => {
+	console.log(req.params);
+	res.send(req.params);
 });
+
+app.use(function (req, res, next) {
+	res.sendFile(path.join(rootDir, 'spa/build/index.html'));
+});
+
+
+
+
