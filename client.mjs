@@ -5,6 +5,7 @@ export class Client {
    *
    * @return {Promise<string | null>} username
    * */
+
   async getUser() {
     throw new Error("Not implemented");
   }
