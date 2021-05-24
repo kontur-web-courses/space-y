@@ -9,8 +9,9 @@ import fetch from "node-fetch";
 const rootDir = process.cwd();
 const port = 3000;
 const app = express();
-const users = new Set();
+
 app.use(express.static('spa/build'))
+app.use(cookieParser())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -31,20 +32,18 @@ app.get("*", (req, res) => {
 })
 
 app.get('/api/user', (req, res) => {
-  const userName = req.query.userName;
-  res.json(userName);
+  const userName = req.cookies['username'];
+  res.send(userName);
 })
 
-app.post('/api/login', (req, res) => {
-  const userName = req.query.userName;
-  users.add(userName);
-  res.json(userName);
+app.post('/api/user', (req, res) => {
+  const userName = req.query.user;
+  res.cookie("username", userName,{httpOnly: true,secure: true, sameSite:'strict'});
 })
-app.post('/api/logout', (req, res) => {
-  const userName = req.query.userName;
-  users.delete(userName);
-  res.json(userName);// что отправлять?
-})
+
+app.delete("/api/user", (req, res) => {
+  res.clearCookie('username');
+});
 
 https.createServer({
   key: fs.readFileSync('certs/server.key'),
