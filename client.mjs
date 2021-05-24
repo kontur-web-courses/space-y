@@ -1,3 +1,5 @@
+
+
 export class Client {
   /**
    * Должен возвращать имя пользователя или null
@@ -6,7 +8,8 @@ export class Client {
    * @return {Promise<string | null>} username
    * */
   async getUser() {
-    throw new Error("Not implemented");
+    let url = '/api';
+    await fetch(url);
   }
 
   /**
@@ -17,7 +20,12 @@ export class Client {
    * @return {Promise<string | null>} username
    * */
   async loginUser(username) {
-    throw new Error("Not implemented");
+    let url = '/api/' + username;
+  //  document.cookie = 'user=' + username;
+    await fetch(url, {method: 'POST', headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+      }})
+     // body: JSON.stringify( username)});
   }
 
   /**
