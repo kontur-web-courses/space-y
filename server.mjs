@@ -25,3 +25,8 @@ app.get("/", (_, res) => {
 app.listen(port, () => {
   console.log(`App listening on port ${port}`);
 });
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(rootDir, 'spa/build/index.html'))
+});
+app.use(express.static('spa/build'));
