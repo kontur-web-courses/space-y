@@ -30,3 +30,13 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(rootDir, 'spa/build/index.html'))
 });
 app.use(express.static('spa/build'));
+
+/*
+https.createServer({
+    key: fs.readFileSync(path.join(rootDir, "/certs/server.key")),
+    cert: fs.readFileSync(path.join(rootDir, "/certs/server.cert"))
+}, app)
+    .listen(port, () => {
+        console.log(App listening on port ${port});
+    });
+ */
