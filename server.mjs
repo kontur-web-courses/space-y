@@ -14,10 +14,7 @@ const app = express();
 const parser = express.json();
 
 app.use(express.static('spa/build'));
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
-app.use(bodyParser.json());
+app.use(express.json());
 
 https
   .createServer(
@@ -46,11 +43,10 @@ app.get("/", (_, res) => {
 });
 
 
-app.post("/api/login", (req, res) => {
-  console.log('2');
-  console.log(req.body);
-  // users.push(req.body.name);
+app.get("/api/login/:user", (req, res) => {
+  users.push(req.params.user);
   console.log(users);
+  res.send(req.params.user);
 });
 
 app.all('*', function(req, res) {

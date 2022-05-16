@@ -20,7 +20,7 @@ export class Client {
    * */
   async loginUser(username) {
     this.username = username;
-    return await fetch(this.baseUrl + 'login', {body: JSON.stringify({name: this.username}), method:'POST'});
+    return await fetch(this.baseUrl + 'login/' + this.username);
   }
 
   /**
