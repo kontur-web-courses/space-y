@@ -11,20 +11,13 @@ const users = [];
 const rootDir = process.cwd();
 const port = 3000;
 const app = express();
+const parser = express.json();
 
 app.use(express.static('spa/build'));
-
-app.get("/client.mjs", (_, res) => {
-  res.header("Cache-Control", "private, no-cache, no-store, must-revalidate");
-  res.sendFile(path.join(rootDir, "client.mjs"), {
-    maxAge: -1,
-    cacheControl: false,
-  });
-});
-
-app.get("/", (_, res) => {
-  res.send(":)");
-});
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(bodyParser.json());
 
 https
   .createServer(
@@ -40,11 +33,26 @@ https
     );
   });
 
-app.all('*', function(req, res) {
-  res.sendFile(path.join(rootDir, "/spa/build/index.html"));
+app.get("/client.mjs", (_, res) => {
+  res.header("Cache-Control", "private, no-cache, no-store, must-revalidate");
+  res.sendFile(path.join(rootDir, "client.mjs"), {
+    maxAge: -1,
+    cacheControl: false,
+  });
 });
 
-app.get("/api/login/:user", (req, res) => {
-  users.push(req.params.user);
+app.get("/", (_, res) => {
+  res.send(":)");
+});
+
+
+app.post("/api/login", (req, res) => {
+  console.log('2');
+  console.log(req.body);
+  // users.push(req.body.name);
   console.log(users);
+});
+
+app.all('*', function(req, res) {
+  res.sendFile(path.join(rootDir, "/spa/build/index.html"));
 });

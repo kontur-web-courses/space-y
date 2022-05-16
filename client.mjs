@@ -1,7 +1,5 @@
-import { request } from "express";
-
 export class Client {
-  baseUrl = 'http://localhost:3000/api/';
+  baseUrl = 'https://localhost:3000/api/';
   username = null;
   /**
    * Должен возвращать имя пользователя или null
@@ -22,7 +20,7 @@ export class Client {
    * */
   async loginUser(username) {
     this.username = username;
-    return request.get(this.baseUrl + 'user/' + username);
+    return await fetch(this.baseUrl + 'login', {body: JSON.stringify({name: this.username}), method:'POST'});
   }
 
   /**
