@@ -9,6 +9,10 @@ import fetch from "node-fetch";
 const rootDir = process.cwd();
 const port = 3000;
 const app = express();
+let key  = fs.readFileSync(path.join(rootDir, "certs", "server.key"));
+let cert = fs.readFileSync(path.join(rootDir, "certs", "server.cert"));
+let credentials = {key: key, cert: cert};
+
 
 app.get("/client.mjs", (_, res) => {
   res.header("Cache-Control", "private, no-cache, no-store, must-revalidate");
@@ -22,6 +26,7 @@ app.get("/", (_, res) => {
   res.send(":)");
 });
 
-app.listen(port, () => {
+let httpsServer = https.createServer(credentials, app);
+httpsServer.listen(port, () => {
   console.log(`App listening on port ${port}`);
 });
