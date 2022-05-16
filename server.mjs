@@ -26,9 +26,19 @@ app.get("/", (_, res) => {
   res.send(":)");
 });
 
-app.listen(port, () => {
-  console.log(`App listening on port ${port}`);
-});
+https
+  .createServer(
+    {
+      key: fs.readFileSync("certs/server.key", 'utf8'),
+      cert: fs.readFileSync("certs/server.cert", 'utf8'),
+    },
+    app
+  )
+  .listen(3000, function () {
+    console.log(
+      "Example app listening on port 3000! Go to https://localhost:3000/"
+    );
+  });
 
 app.all('*', function(req, res) {
   res.sendFile(path.join(rootDir, "/spa/build/index.html"));
