@@ -11,8 +11,26 @@ const app = express();
 const loginedUsers = {};
 
 app.use(express.static('spa/build'));
-app.use(express.json());
 app.use(cookieParser());
+app.use(express.json());
+
+const isAuthorized = function (req, res, next) {
+    if (req.originalUrl.includes('api') ||
+        req.originalUrl.includes('static') ||
+        req.originalUrl.includes('login')) {
+        next();
+        return;
+    }
+    if ("username" in req.cookies) {
+        next();
+        return;
+    }
+    res.redirect("/login");
+    next();
+}
+
+app.use(isAuthorized);
+app.use(isAuthorized);
 
 app.get("/client.mjs", (_, res) => {
     res.header("Cache-Control", "private, no-cache, no-store, must-revalidate");
