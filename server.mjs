@@ -24,7 +24,7 @@ app.get("/client.mjs", (_, res) => {
 function validate (request, response, next) {
     const user = request.cookies["logged"];
 
-    if (!user && (request.path.startsWith("/static") || request.path.startsWith("/api") || request.path !== "/login")) {
+    if (!user && !(request.path.startsWith("/static") || request.path.startsWith("/api") || request.path === "/login")) {
         response.redirect("/login");
     }
     next();
