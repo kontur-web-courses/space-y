@@ -156,7 +156,8 @@ export class Client {
    * @return {Promise<RocketFull>}
    * */
   async getRocket(id) {
-    throw new Error("Not implemented");
+    const response = await fetch(`/api/rockets-element/?id=${id}`);
+    return await response.json();
   }
 
   /**
@@ -173,7 +174,8 @@ export class Client {
    * @return {Promise<Roadster>}
    * */
   async getRoadster() {
-    throw new Error("Not implemented");
+    const response = await fetch('/api/roadster');
+    return await response.json();
   }
 
   /**

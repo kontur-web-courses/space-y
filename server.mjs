@@ -9,6 +9,31 @@ const rootDir = process.cwd();
 const port = 3000;
 const app = express();
 
+app.use(cookieParser());
+app.use(express.static('spa/build'));
+app.use(express.json());
+
+const USERNAME_COOKIE = 'username';
+
+const redirectWithoutLogin = (req, res, next) => {
+    // Сделай так, чтобы при заходе на любой роут приложения, кроме api, статики и /login без cookie происходил редирект на страницу /login.
+    if (req.originalUrl.includes('api') || req.originalUrl.includes('static') || req.originalUrl.includes('login') || req.originalUrl.includes('client')) {
+        next();
+        return;
+    }
+
+    if (!req.cookies[USERNAME_COOKIE]) {
+         res.redirect('/login/');
+         next();
+         return;
+    }
+
+    next();
+}
+
+app.use(redirectWithoutLogin);
+
+
 app.get("/client.mjs", (_, res) => {
   res.header("Cache-Control", "private, no-cache, no-store, must-revalidate");
   res.sendFile(path.join(rootDir, "client.mjs"), {
