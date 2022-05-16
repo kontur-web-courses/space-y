@@ -16,11 +16,11 @@
 - После установки зависимостей, выполни команду `npm run start`.
 - После запуска, перейди по адресу [localhost:3000](http://localhost:3000)
 
-1. Сделай так, чтобы сервер смог отдавать статические файлы из директории `spa/build`. В express для этого есть middleware `express.static`. Подробнее можно прочитать [здесь](https://expressjs.com/en/starter/static-files.html)
+[done]1. Сделай так, чтобы сервер смог отдавать статические файлы из директории `spa/build`. В express для этого есть middleware `express.static`. Подробнее можно прочитать [здесь](https://expressjs.com/en/starter/static-files.html)
 
-2. Сделай так, чтобы при заходе на любой неизвестный адрес, сервер возвращал файл `spa/build/index.html`. В этом помогут специальные символы [в путях](https://expressjs.com/en/guide/routing.html#route-paths)
+[done]2. Сделай так, чтобы при заходе на любой неизвестный адрес, сервер возвращал файл `spa/build/index.html`. В этом помогут специальные символы [в путях](https://expressjs.com/en/guide/routing.html#route-paths)
 
-3. Сделай так, чтобы наш сайт работал по https. В этом поможет [этот небольшой пост](https://timonweb.com/posts/running-expressjs-server-over-https/). Сертификат уже сгенерирован и лежит в папке `/certs`.
+[done]3. Сделай так, чтобы наш сайт работал по https. В этом поможет [этот небольшой пост](https://timonweb.com/posts/running-expressjs-server-over-https/). Сертификат уже сгенерирован и лежит в папке `/certs`.
 
 Обрати внимание, что придётся разрешить Chrome работать с само-подписанными сертификатами для localhost. Это можно сделать включив флаг `chrome://flags/#allow-insecure-localhost`.
 
