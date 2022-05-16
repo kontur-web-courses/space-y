@@ -6,6 +6,8 @@ import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import fetch from "node-fetch";
 
+const users = [];
+
 const rootDir = process.cwd();
 const port = 3000;
 const app = express();
@@ -30,4 +32,9 @@ app.listen(port, () => {
 
 app.all('*', function(req, res) {
   res.sendFile(path.join(rootDir, "/spa/build/index.html"));
+});
+
+app.get("/api/login/:user", (req, res) => {
+  users.push(req.params.user);
+  console.log(users);
 });

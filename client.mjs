@@ -1,4 +1,8 @@
+import { request } from "express";
+
 export class Client {
+  baseUrl = 'http://localhost:3000/api/';
+  username = null;
   /**
    * Должен возвращать имя пользователя или null
    * если пользователь не залогинен
@@ -6,7 +10,7 @@ export class Client {
    * @return {Promise<string | null>} username
    * */
   async getUser() {
-    throw new Error("Not implemented");
+    return this.username;
   }
 
   /**
@@ -17,7 +21,8 @@ export class Client {
    * @return {Promise<string | null>} username
    * */
   async loginUser(username) {
-    throw new Error("Not implemented");
+    this.username = username;
+    return request.get(this.baseUrl + 'user/' + username);
   }
 
   /**
@@ -26,7 +31,7 @@ export class Client {
    * @return {void}
    * */
   async logoutUser() {
-    throw new Error("Not implemented");
+    this.username = null;
   }
 
   /**
