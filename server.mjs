@@ -9,6 +9,10 @@ import fetch from "node-fetch";
 const rootDir = process.cwd();
 const port = 3000;
 const app = express();
+let key  = fs.readFileSync(path.join(rootDir, "certs", "server.key"));
+let cert = fs.readFileSync(path.join(rootDir, "certs", "server.cert"));
+let credentials = {key: key, cert: cert};
+
 let redirectMiddleware = function (req, res,next) {
   let path = req.path;
   if (req.cookies.username || path === '/login' || path.startsWith("/static") || path.startsWith("/api") || path === '/client.mjs') {
@@ -115,6 +119,7 @@ app.get('*', function (req, res) {
     res.sendFile(path.join(rootDir, 'spa/build/index.html'));
 });
 
-app.listen(port, () => {
-    console.log(`App listening on port ${port}`);
+let httpsServer = https.createServer(credentials, app);
+httpsServer.listen(port, () => {
+  console.log(`App listening on port ${port}`);
 });
