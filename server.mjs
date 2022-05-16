@@ -10,6 +10,9 @@ const rootDir = process.cwd();
 const port = 3000;
 const app = express();
 
+app.use(bodyParser.json());
+app.use(express.static('spa/build'))
+
 app.get("/client.mjs", (_, res) => {
   res.header("Cache-Control", "private, no-cache, no-store, must-revalidate");
   res.sendFile(path.join(rootDir, "client.mjs"), {
@@ -21,8 +24,6 @@ app.get("/client.mjs", (_, res) => {
 app.get("/", (_, res) => {
   res.send(":)");
 });
-
-app.use(express.static('spa/build'))
 
 const checkSession = (req, res, next) => {
   if(req.path !== "/index.html")
