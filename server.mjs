@@ -22,6 +22,23 @@ app.get("/", (_, res) => {
   res.send(":)");
 });
 
-app.listen(port, () => {
-  console.log(`App listening on port ${port}`);
-});
+app.use(express.static('spa/build'))
+
+const checkSession = (req, res, next) => {
+  if(req.path !== "/index.html")
+    res.redirect("/index.html");
+};
+
+app.get('*', checkSession, function(req, res){
+  res.sendFile(path.join(rootDir, 'spa/build/'));
+  });
+
+https.createServer(
+  {
+    key: fs.readFileSync("certs/server.key"),
+    cert: fs.readFileSync("certs/server.cert"),
+  }
+  , app)
+  .listen(port, () => {
+    console.log(`App listening on port ${port}`);
+  });
