@@ -78,7 +78,10 @@ export class Client {
      * @return {Promise<About>}
      * */
     async getInfo() {
-        throw new Error("Not implemented");
+        let response = await fetch('https://api.spacexdata.com/v3/info', {
+            method: "GET",
+        });
+        return await response.json();
     }
 
     /**
@@ -91,7 +94,10 @@ export class Client {
      * @return {Promise<EventBrief[]>}
      * */
     async getHistory() {
-        throw new Error("Not implemented");
+        let response = await fetch('https://api.spacexdata.com/v3/history', {
+            method: "GET",
+        });
+        return await response.json();
     }
 
     /**
@@ -108,7 +114,10 @@ export class Client {
      * @return {Promise<EventFull>}
      * */
     async getHistoryEvent(id) {
-        throw new Error("Not implemented");
+        let response = await fetch(`https://api.spacexdata.com/v3/history/${id}`, {
+            method: "GET",
+        });
+        return await response.json();
     }
 
     /**
@@ -121,7 +130,10 @@ export class Client {
      * @return {Promise<RocketBrief[]>}
      * */
     async getRockets() {
-        throw new Error("Not implemented");
+        let response = await fetch('https://api.spacexdata.com/v3/rockets', {
+            method: "GET",
+        });
+        return await response.json();
     }
 
     /**
@@ -146,7 +158,10 @@ export class Client {
      * @return {Promise<RocketFull>}
      * */
     async getRocket(id) {
-        throw new Error("Not implemented");
+        let response = await fetch(`https://api.spacexdata.com/v3/rockets/${id}`, {
+            method: "GET",
+        });
+        return await response.json();
     }
 
     /**
@@ -163,7 +178,10 @@ export class Client {
      * @return {Promise<Roadster>}
      * */
     async getRoadster() {
-        throw new Error("Not implemented");
+        let response = await fetch('https://api.spacexdata.com/v3/roadster', {
+            method: "GET",
+        });
+        return await response.json();
     }
 
     /**
