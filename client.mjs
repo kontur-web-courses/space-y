@@ -6,7 +6,8 @@ export class Client {
    * @return {Promise<string | null>} username
    * */
   async getUser() {
-    throw new Error("Not implemented");
+    const response = await fetch("/api/user");
+    return response.text();
   }
 
   /**
@@ -17,7 +18,8 @@ export class Client {
    * @return {Promise<string | null>} username
    * */
   async loginUser(username) {
-    throw new Error("Not implemented");
+    await fetch(`/api/login?username=${username}`);
+    return new Promise((resolve) => resolve(username));
   }
 
   /**
@@ -26,8 +28,7 @@ export class Client {
    * @return {void}
    * */
   async logoutUser() {
-    throw new Error("Not implemented");
-  }
+    await fetch(`/api/logout`);  }
 
   /**
    * Должен возвращать информацию о компании
@@ -50,7 +51,8 @@ export class Client {
    * @return {Promise<About>}
    * */
   async getInfo() {
-    throw new Error("Not implemented");
+    const response = await fetch("/api/info");
+    if (response.ok) return response.json();
   }
 
   /**
@@ -63,7 +65,8 @@ export class Client {
    * @return {Promise<EventBrief[]>}
    * */
   async getHistory() {
-    throw new Error("Not implemented");
+    const response = await fetch("/api/history");
+    if (response.ok) return response.json();
   }
 
   /**
@@ -80,7 +83,8 @@ export class Client {
    * @return {Promise<EventFull>}
    * */
   async getHistoryEvent(id) {
-    throw new Error("Not implemented");
+    const response = await fetch(`/api/history/event/?id=${id}`);
+    if (response.ok) return response.json();
   }
 
   /**
