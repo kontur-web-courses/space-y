@@ -1,7 +1,5 @@
 export class Client {
-  /**
-   * Должен возвращать имя пользователя или null
-   * если пользователь не залогинен
+  /**              МЫ ТУТ БЫЛИ
    *
    * @return {Promise<string | null>} username
    * */
