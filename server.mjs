@@ -6,7 +6,11 @@ import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import fetch from "node-fetch";
 
-const users = [];
+class UserInfo {
+
+}
+
+const users = new Map();
 
 const rootDir = process.cwd();
 const port = 3000;
@@ -44,7 +48,11 @@ app.get("/", (_, res) => {
 
 
 app.get("/api/login/:user", (req, res) => {
-  users.push(req.params.user);
+  // console.log(1);
+  if (!users.has(req.params.user)) {
+    users.set(req.params.user, new UserInfo());
+  }
+  console.log(2);
   console.log(users);
   res.send(req.params.user);
 });
