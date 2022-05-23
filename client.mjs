@@ -1,4 +1,10 @@
 export class Client {
+
+  constructor() {
+    this.isLogin = false;
+    this.username = null;
+  }
+
   /**
    * Должен возвращать имя пользователя или null
    * если пользователь не залогинен
@@ -6,7 +12,8 @@ export class Client {
    * @return {Promise<string | null>} username
    * */
   async getUser() {
-    throw new Error("Not implemented");
+    if (!this.isLogin) return null;
+    return this.username;
   }
 
   /**
@@ -17,7 +24,17 @@ export class Client {
    * @return {Promise<string | null>} username
    * */
   async loginUser(username) {
-    throw new Error("Not implemented");
+    this.username = username;
+    this.isLogin = true;
+    response = await fetch("/api/login", {
+      method: "POST",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({username: this.username})
+    });
+    return new Promise((resolve)=>resolve(username));
   }
 
   /**
@@ -26,7 +43,17 @@ export class Client {
    * @return {void}
    * */
   async logoutUser() {
-    throw new Error("Not implemented");
+    this.isLogin = false;
+    this.username = null;
+
+    await fetch("/api/unlogin", {
+      method: "POST",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
   }
 
   /**
