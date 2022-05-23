@@ -6,7 +6,9 @@ export class Client {
    * @return {Promise<string | null>} username
    * */
   async getUser() {
-    throw new Error("Not implemented");
+    const json = await fetch("/api/users/")
+      .then(a => a.json());
+    return json.username;
   }
 
   /**
@@ -17,7 +19,9 @@ export class Client {
    * @return {Promise<string | null>} username
    * */
   async loginUser(username) {
-    throw new Error("Not implemented");
+    return (await fetch(`/api/users/login?username=${username}`,
+      { method: "POST" }))
+      .get("username");
   }
 
   /**
@@ -26,7 +30,7 @@ export class Client {
    * @return {void}
    * */
   async logoutUser() {
-    throw new Error("Not implemented");
+    await fetch(`/api/users/logout`, { method: "POST" });
   }
 
   /**
