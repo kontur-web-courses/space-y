@@ -19,15 +19,14 @@ export class Client {
    * @return {Promise<string | null>} username
    * */
   async loginUser(username) {
-    const data = {
-      user: username
-    };
     const resp = await fetch('/api/loginUser', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify({
+        user: username
+      })
     });
     const respJson = await resp.json();
     return respJson.user;
