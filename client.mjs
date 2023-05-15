@@ -76,7 +76,10 @@ export class Client {
    * @return {Promise<EventBrief[]>}
    * */
   async getHistory() {
-    throw new Error("Not implemented");
+    let response = await fetch('https://api.spacexdata.com/v3/history', {
+      method: "GET",
+    });
+    return await response.json();
   }
 
   /**
@@ -106,7 +109,10 @@ export class Client {
    * @return {Promise<RocketBrief[]>}
    * */
   async getRockets() {
-    throw new Error("Not implemented");
+    let response = await fetch(`https://api.spacexdata.com/v3/history/${id}`, {
+      method: "GET",
+    });
+    return await response.json();
   }
 
   /**
