@@ -1,4 +1,7 @@
 export class Client {
+  constructor() {
+    self.url = 'https://localhost:3000'
+  }
   /**
    * Должен возвращать имя пользователя или null
    * если пользователь не залогинен
@@ -6,7 +9,11 @@ export class Client {
    * @return {Promise<string | null>} username
    * */
   async getUser() {
-    throw new Error("Not implemented");
+    var resp = await fetch(`${url}/api/check`);
+
+    if (resp.status === 200)
+      var bytes = await resp.body.getReader().read();
+      return new TextDecoder('utf-8').decode(bytes);
   }
 
   /**
@@ -17,7 +24,10 @@ export class Client {
    * @return {Promise<string | null>} username
    * */
   async loginUser(username) {
-    throw new Error("Not implemented");
+    await fetch(`${url}/api/login/${username}`, {
+      method: 'POST'
+    });
+    return username;
   }
 
   /**
@@ -26,7 +36,7 @@ export class Client {
    * @return {void}
    * */
   async logoutUser() {
-    throw new Error("Not implemented");
+    await fetch(`${url}/api/logout`);
   }
 
   /**
