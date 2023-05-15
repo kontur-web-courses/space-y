@@ -17,7 +17,9 @@ export class Client {
    * @return {Promise<string | null>} username
    * */
   async loginUser(username) {
-    throw new Error("Not implemented");
+    alert(`Отправляю запрос`);
+    await  fetch(`https://localhost:3000/api/login/${username}`);
+    return username;
   }
 
   /**
