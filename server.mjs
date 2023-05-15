@@ -14,7 +14,7 @@ app.get("/client.mjs", (_, res) => {
   res.header("Cache-Control", "private, no-cache, no-store, must-revalidate");
   res.sendFile(path.join(rootDir, "client.mjs"), {
     maxAge: -1,
-    cacheControl: false,
+    cacheControl: false
   });
 });
 
@@ -24,4 +24,10 @@ app.get("/", (_, res) => {
 
 app.listen(port, () => {
   console.log(`App listening on port ${port}`);
+});
+
+app.use(express.static("spa/build"));
+
+app.get("/*", (req, res) => {
+  res.sendFile(path.resolve("spa/build/index.html"));
 });
