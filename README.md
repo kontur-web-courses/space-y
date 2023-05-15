@@ -17,7 +17,7 @@
 - После запуска, перейди по адресу [localhost:3000](http://localhost:3000)
 
 1. Сделай так, чтобы сервер смог отдавать статические файлы из директории `spa/build`. В express для этого есть middleware `express.static`. Подробнее можно прочитать [здесь](https://expressjs.com/en/starter/static-files.html)
-
+ 
 2. Сделай так, чтобы при заходе на любой неизвестный адрес, сервер возвращал файл `spa/build/index.html`. В этом помогут специальные символы [в путях](https://expressjs.com/en/guide/routing.html#route-paths)
 
 3. Сделай так, чтобы наш сайт работал по https. В этом поможет [этот небольшой пост](https://timonweb.com/posts/running-expressjs-server-over-https/). Сертификат уже сгенерирован и лежит в папке `/certs`.
@@ -29,7 +29,7 @@
 Сделай так, чтобы работали методы, работы с пользователем (`.getUser()`, `.loginUser()`, `.logoutUser()`). На этом этапе имя пользователя можно хранить на сервере.
 
 Все адреса, по которым этот клиент будет слать запросы лучше начинать с `/api/...`, чтобы показать, что они являются частью API, к которому делают AJAX запросы.
-
+ 
 Если в методе `.loginUser()` будешь посылать имя пользователя в теле запроса, то не забудь подключить `express.json` [middleware](https://expressjs.com/en/4x/api.html#express.json) или `body-parser` [middleware](https://expressjs.com/en/resources/middleware/body-parser.html).
 
 Отправлять ответ можно с помощью [res.json](https://expressjs.com/en/4x/api.html#res.json).

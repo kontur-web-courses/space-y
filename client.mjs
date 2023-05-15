@@ -1,4 +1,5 @@
 export class Client {
+
   /**
    * Должен возвращать имя пользователя или null
    * если пользователь не залогинен
@@ -6,8 +7,10 @@ export class Client {
    * @return {Promise<string | null>} username
    * */
   async getUser() {
+    const response = await fetch("/api/login")
+    console.log(response)
     throw new Error("Not implemented");
-  }
+  } 
 
   /**
    * Должен логинить пользователя с именем username
@@ -17,6 +20,8 @@ export class Client {
    * @return {Promise<string | null>} username
    * */
   async loginUser(username) {
+    const response = await fetch("/api/login")
+    console.log(response)
     throw new Error("Not implemented");
   }
 
