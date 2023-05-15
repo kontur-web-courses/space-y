@@ -10,11 +10,11 @@ const rootDir = process.cwd();
 const port = 3000;
 const app = express();
 
-app.use(/\/((?!client\.mjs).)*/, function (request, response) {
-  response.sendFile(path.join(rootDir, "spa/build/index.html"));
-});
+app.use(express.static(path.join(rootDir, "spa/build")));
 
-app.use(express.static(path.join(rootDir, 'spa/build')));
+app.use(/\/((?!client\.mjs).)+/, function(req, res) {
+  res.sendFile(path.join(rootDir, "spa/build/index.html"));
+});
 
 app.get("/client.mjs", (_, res) => {
   res.header("Cache-Control", "private, no-cache, no-store, must-revalidate");
